@@ -1,10 +1,10 @@
 %include	/usr/lib/rpm/macros.python
 %define		zope_subname	Silva
-Summary:	Silva - a Zope-based web application
-Summary(pl):	Silva - aplikacja dla stron WWW oparta na Zope
+Summary:	A Zope-based web application
+Summary(pl):	Aplikacja dla stron WWW oparta na Zope
 Name:		Zope-%{zope_subname}
 Version:	0.9.2.5
-Release:	1
+Release:	2
 License:	Distributable
 Group:		Development/Tools
 Source0:	http://zope.org/Members/infrae/%{zope_subname}/%{zope_subname}-%{version}/%{zope_subname}-%{version}-all.tgz
@@ -14,10 +14,9 @@ URL:		http://zope.org/Members/infrae/Silva/
 Requires:	python-PyXML >= 0.8.2
 Requires:	Zope >= 2.6.1
 Requires:	Zope-Formulator
+Requires(post,postun):  /usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define 	product_dir	/usr/lib/zope/Products
 
 %description
 Silva is a Zope-based web application designed for the creation and
@@ -45,36 +44,38 @@ mv -f XMLWidgets/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt} docs/XMLWidget
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{product_dir}/%{zope_subname}
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-cp -af {Annotations,FileSystemSite,ParsedXML,ProxyIndex,Silva,SilvaMetadata,XMLWidgets} $RPM_BUILD_ROOT%{product_dir}
+cp -af {Annotations,FileSystemSite,ParsedXML,ProxyIndex,Silva,SilvaMetadata,XMLWidgets} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-%py_comp $RPM_BUILD_ROOT%{product_dir}
-%py_ocomp $RPM_BUILD_ROOT%{product_dir}
+%py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
+%py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 # find $RPM_BUILD_ROOT -type f -name "*.py" -exec rm -rf {} \;;
-rm -rf $RPM_BUILD_ROOT%{product_dir}/docs
+rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
+for p in Annotations FileSystemSite ParsedXML ProxyIndex SilvaMetadata XMLWidgets ; do
+    /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
+done
 if [ -f /var/lock/subsys/zope ]; then
 	/etc/rc.d/init.d/zope restart >&2
 fi
 
 %postun
+if [ "$1" = "0" ]; then
+    for p in Annotations FileSystemSite ParsedXML ProxyIndex SilvaMetadata XMLWidgets ; do
+        /usr/sbin/installzopeproduct -d $p
+    done
+fi
 if [ -f /var/lock/subsys/zope ]; then
-	/etc/rc.d/init.d/zope restart >&2
+            /etc/rc.d/init.d/zope restart >&2
 fi
 
 %files
 %defattr(644,root,root,755)
 %doc docs/*
-%{product_dir}/%{zope_subname}
-%{product_dir}/Annotations
-%{product_dir}/FileSystemSite
-%{product_dir}/ParsedXML
-%{product_dir}/ProxyIndex
-%{product_dir}/SilvaMetadata
-%{product_dir}/XMLWidgets
+%{_datadir}/%{name}
