@@ -3,17 +3,19 @@
 Summary:	A Zope-based web application
 Summary(pl):	Aplikacja dla stron WWW oparta na Zope
 Name:		Zope-%{zope_subname}
-# %%define		sub_ver b1
-Version:	0.9.3.6
-Release:	1
+%define		sub_ver b1
+Version:	1.0
+Release:	0.%{sub_ver}.1
 License:	Distributable
 Group:		Development/Tools
-Source0:	http://zope.org/Members/infrae/%{zope_subname}/%{zope_subname}-%{version}/%{zope_subname}-0.9.3.6-all.tgz
-# Source0-md5:	65534b2c525fa49fa39e371362ce0e6d
+Source0:	http://zope.org/Members/infrae/%{zope_subname}/%{zope_subname}-%{version}%{sub_ver}/%{zope_subname}-%{version}%{sub_ver}-all.tgz
+# Source0-md5:	491da24183aa129a5397afbda6765452
 URL:		http://zope.org/Members/infrae/Silva/
 %pyrequires_eq	python-modules
 Requires:	Zope >= 2.6.1
-Requires:	Zope-Formulator
+Requires:	Zope-Formulator >= 1.6.2
+Requires:	Zope-FileSystemSite
+Requires:	python-PyXML >= 0.8.3
 Requires(post,postun):  /usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -34,7 +36,7 @@ tworzenia i zarz±dzania struktur± tre¶ci tekstowej.
 rm -rf Formulator
 
 mkdir docs docs/Annotations docs/FileSystemSite docs/ParsedXML docs/ProxyIndex docs/Silva docs/SilvaDocument \
-    docs/SilvaMetadata docs/SilvaViews docs/XMLWidgets
+    docs/SilvaMetadata docs/SilvaViews docs/XMLWidgets docs/kupu
 mv -f Annotations/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt} docs/Annotations
 mv -f FileSystemSite/README.txt docs/FileSystemSite
 mv -f ParsedXML/{CHANGES.txt,CREDITS.txt,INSTALL.txt,README.txt} docs/ParsedXML
@@ -44,12 +46,16 @@ mv -f SilvaDocument/{DEVELOPER.txt,HISTORY.txt,INSTALL.txt,README.txt} docs/Silv
 mv -f SilvaMetadata/{API.txt,CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt,ROADMAP.txt} docs/SilvaMetadata
 mv -f SilvaViews/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt} docs/SilvaViews
 mv -f XMLWidgets/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt} docs/XMLWidgets
+mv -f kupu/doc/* docs/kupu
+mv -f kupu/README*.txt docs/kupu
+rm -rf kupu/doc
+rm -rf kupu/{Makefile,make.bat}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-cp -af {Annotations,FileSystemSite,ParsedXML,ProxyIndex,Silva,SilvaDocument,SilvaMetadata,SilvaViews,XMLWidgets} \
+cp -af {Annotations,FileSystemSite,ParsedXML,ProxyIndex,Silva,SilvaDocument,SilvaMetadata,SilvaViews,XMLWidgets,kupu} \
     $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -62,7 +68,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in Annotations FileSystemSite ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews XMLWidgets ; do
+for p in Annotations FileSystemSite ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews XMLWidgets kupu; do
     /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -71,7 +77,7 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-    for p in Annotations FileSystemSite ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews XMLWidgets ; do
+    for p in Annotations FileSystemSite ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews XMLWidgets kupu; do
         /usr/sbin/installzopeproduct -d $p
     done
 fi
