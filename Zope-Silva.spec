@@ -4,7 +4,7 @@ Summary:	A Zope-based web application
 Summary(pl):	Aplikacja dla stron WWW oparta na Zope
 Name:		Zope-%{zope_subname}
 Version:	0.9.2.5
-Release:	2
+Release:	3
 License:	Distributable
 Group:		Development/Tools
 Source0:	http://zope.org/Members/infrae/%{zope_subname}/%{zope_subname}-%{version}/%{zope_subname}-%{version}-all.tgz
@@ -58,7 +58,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in Annotations FileSystemSite ParsedXML ProxyIndex SilvaMetadata XMLWidgets ; do
+for p in Annotations FileSystemSite ParsedXML ProxyIndex Silva SilvaMetadata XMLWidgets ; do
     /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -67,7 +67,7 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-    for p in Annotations FileSystemSite ParsedXML ProxyIndex SilvaMetadata XMLWidgets ; do
+    for p in Annotations FileSystemSite ParsedXML ProxyIndex Silva SilvaMetadata XMLWidgets ; do
         /usr/sbin/installzopeproduct -d $p
     done
 fi
