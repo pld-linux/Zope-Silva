@@ -1,7 +1,7 @@
 %include	/usr/lib/rpm/macros.python
 %define		zope_subname	Silva
-Summary:	Silva is a Zope-based web application.
-Summary(pl):	Aplikacja dla stron WWW oparta na Zope.
+Summary:	Silva - a Zope-based web application
+Summary(pl):	Silva - aplikacja dla stron WWW oparta na Zope
 Name:		Zope-%{zope_subname}
 Version:	0.9.2.5
 Release:	1
@@ -9,7 +9,7 @@ License:	Distributable
 Group:		Development/Tools
 Source0:	http://zope.org/Members/infrae/%{zope_subname}/%{zope_subname}-%{version}/%{zope_subname}-%{version}-all.tgz
 # Source0-md5:	c8bf44d70e2ff98f2d45c47e179d8925
-URL:		http://zope.org/Members/infrae/Silva
+URL:		http://zope.org/Members/infrae/Silva/
 %pyrequires_eq	python-modules
 Requires:	python-PyXML >= 0.8.2
 Requires:	Zope >= 2.6.1
@@ -24,8 +24,8 @@ Silva is a Zope-based web application designed for the creation and
 management of structured, textual content.
 
 %description -l pl
-Aplikacja dla stron WWW oparta na Zope, Silva jest zaprojektowana dla
-tworzenia i zarz±dzania struktur± zawarto¶ci tekstowej.
+Silva to aplikacja dla stron WWW oparta na Zope, zaprojektowana do
+tworzenia i zarz±dzania struktur± tre¶ci tekstowej.
 
 %prep
 %setup -q -c
