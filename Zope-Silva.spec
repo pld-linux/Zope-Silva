@@ -7,7 +7,7 @@ Version:	1.1
 Release:	1
 License:	Distributable
 Group:		Development/Tools
-Source0:	http://www.infrae.com/download/%{zope_subname}/%{version}/%{zope_subname}-%{version}-all.tgz
+Source0:	http://www.infrae.com/download/Silva/%{version}/%{zope_subname}-%{version}-all.tgz
 # Source0-md5:	c45fe72eba2ced35b3057f29ff018e22
 URL:		http://zope.org/Members/infrae/Silva/
 %pyrequires_eq	python-modules
