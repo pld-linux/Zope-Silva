@@ -10,7 +10,7 @@ Group:		Development/Tools
 Source0:	http://www.infrae.com/download/Silva/%{version}/%{zope_subname}-%{version}-all.tgz
 # Source0-md5:	7091a77435721a5ed4eb5c13856e2fcd
 URL:		http://zope.org/Members/infrae/Silva/
-BuildRequires:  python
+BuildRequires:	python
 %pyrequires_eq	python-modules
 Requires:	Zope >= 2.6.1
 Requires:	Zope-Formulator >= 1.6.2
