@@ -3,12 +3,12 @@ Summary:	A Zope-based web application
 Summary(pl):	Aplikacja dla stron WWW oparta na Zope
 Name:		Zope-%{zope_subname}
 # %%define		sub_ver b1
-Version:	1.0
+Version:	1.0.1
 Release:	1
 License:	Distributable
 Group:		Development/Tools
 Source0:	http://zope.org/Members/infrae/%{zope_subname}/%{zope_subname}-%{version}/%{zope_subname}-%{version}-all.tgz
-# Source0-md5:	84468c0e6829db57c7555adb1469cadc
+# Source0-md5:	531a4bad58ebd386ced05fadc42eba9c
 URL:		http://zope.org/Members/infrae/Silva/
 %pyrequires_eq	python-modules
 Requires:	Zope >= 2.6.1
