@@ -1,4 +1,3 @@
-%include	/usr/lib/rpm/macros.python
 %define		zope_subname	Silva
 Summary:	A Zope-based web application
 Summary(pl):	Aplikacja dla stron WWW oparta na Zope
