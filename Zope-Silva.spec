@@ -15,7 +15,7 @@ Requires:	Zope >= 2.6.1
 Requires:	Zope-Formulator >= 1.6.2
 Requires:	Zope-FileSystemSite >= 1.4.1
 Requires:	python-PyXML >= 0.8.3
-Requires(post,postun):  /usr/sbin/installzopeproduct
+Requires(post,postun):	/usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -35,7 +35,7 @@ tworzenia i zarz±dzania struktur± tre¶ci tekstowej.
 rm -rf {Formulator,FileSystemSite}
 
 mkdir docs docs/Annotations docs/ParsedXML docs/ProxyIndex docs/Silva docs/SilvaDocument \
-    docs/SilvaMetadata docs/SilvaViews docs/Sprout docs/XMLWidgets docs/kupu
+	docs/SilvaMetadata docs/SilvaViews docs/Sprout docs/XMLWidgets docs/kupu
 mv -f Annotations/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt} docs/Annotations
 mv -f ParsedXML/{CHANGES.txt,CREDITS.txt,INSTALL.txt,README.txt} docs/ParsedXML
 mv -f ProxyIndex/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt} docs/ProxyIndex
@@ -56,7 +56,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 cp -af {Annotations,ParsedXML,ProxyIndex,Silva,SilvaDocument,SilvaMetadata,SilvaViews,Sprout,XMLWidgets,kupu} \
-    $RPM_BUILD_ROOT%{_datadir}/%{name}
+	$RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -69,7 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 for p in Annotations ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews Sprout XMLWidgets kupu; do
-    /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
+	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
 	/etc/rc.d/init.d/zope restart >&2
@@ -77,12 +77,12 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-    for p in Annotations ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews Sprout XMLWidgets kupu; do
-        /usr/sbin/installzopeproduct -d $p
-    done
+	for p in Annotations ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews Sprout XMLWidgets kupu; do
+		/usr/sbin/installzopeproduct -d $p
+	done
 fi
 if [ -f /var/lock/subsys/zope ]; then
-            /etc/rc.d/init.d/zope restart >&2
+	/etc/rc.d/init.d/zope restart >&2
 fi
 
 %files
