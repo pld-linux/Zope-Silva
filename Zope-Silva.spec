@@ -3,18 +3,19 @@ Summary:	A Zope-based web application
 Summary(pl):	Aplikacja dla stron WWW oparta na Zope
 Name:		Zope-%{zope_subname}
 # %%define		sub_ver b1
-Version:	1.1.4
+Version:	1.2.1
 Release:	1
 License:	Distributable
 Group:		Development/Tools
 Source0:	http://www.infrae.com/download/Silva/%{version}/%{zope_subname}-%{version}-all.tgz
-# Source0-md5:	820a1a7870b20888bbe4c08c4de64227
+# Source0-md5:	cb6d3bea8bc22bbad23727ba2a82401d
 URL:		http://zope.org/Members/infrae/Silva/
 BuildRequires:	python
 %pyrequires_eq	python-modules
 Requires:	Zope >= 2.6.1
-Requires:	Zope-Formulator >= 1.6.2
 Requires:	Zope-FileSystemSite >= 1.4.1
+Requires:	Zope-Formulator >= 1.8.0
+Requires:	Zope-PlacelessTranslationService
 Requires:	python-PyXML >= 0.8.3
 Requires(post,postun):	/usr/sbin/installzopeproduct
 BuildArch:	noarch
@@ -33,7 +34,7 @@ tworzenia i zarz±dzania struktur± tre¶ci tekstowej.
 
 %build
 # remove dirs - additional packages!
-rm -rf {Formulator,FileSystemSite}
+rm -rf {Formulator,FileSystemSite,PlacelessTranslationService}
 
 mkdir docs docs/Annotations docs/ParsedXML docs/ProxyIndex docs/Silva docs/SilvaDocument \
 	docs/SilvaMetadata docs/SilvaViews docs/Sprout docs/XMLWidgets docs/kupu
@@ -48,7 +49,7 @@ mv -f Sprout/{HISTORY.txt,README.txt} docs/Sprout
 rm -rf Sprout/LICENSES.txt
 mv -f XMLWidgets/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt} docs/XMLWidgets
 mv -f kupu/doc/* docs/kupu
-mv -f kupu/README*.txt docs/kupu
+# mv -f kupu/README*.txt docs/kupu
 rm -rf kupu/doc
 rm -rf kupu/{Makefile,make.bat}
 
