@@ -4,7 +4,7 @@ Summary(pl):	Aplikacja dla stron WWW oparta na Zope
 Name:		Zope-%{zope_subname}
 # %%define		sub_ver b1
 Version:	1.2.2
-Release:	1
+Release:	2
 License:	Distributable
 Group:		Development/Tools
 Source0:	http://www.infrae.com/download/Silva/%{version}/%{zope_subname}-%{version}-all.tgz
@@ -13,6 +13,7 @@ URL:		http://zope.org/Members/infrae/Silva/
 BuildRequires:	python
 %pyrequires_eq	python-modules
 Requires:	Zope >= 2.6.1
+Requires:	Zope-kupu
 Requires:	Zope-FileSystemSite >= 1.4.1
 Requires:	Zope-Formulator >= 1.8.0
 Requires:	Zope-PlacelessTranslationService
@@ -34,10 +35,10 @@ tworzenia i zarz±dzania struktur± tre¶ci tekstowej.
 
 %build
 # remove dirs - additional packages!
-rm -rf {Formulator,FileSystemSite,PlacelessTranslationService}
+rm -rf {Formulator,FileSystemSite,PlacelessTranslationService,kupu}
 
 mkdir docs docs/Annotations docs/ParsedXML docs/ProxyIndex docs/Silva docs/SilvaDocument \
-	docs/SilvaMetadata docs/SilvaViews docs/Sprout docs/XMLWidgets docs/kupu
+	docs/SilvaMetadata docs/SilvaViews docs/Sprout docs/XMLWidgets
 mv -f Annotations/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt} docs/Annotations
 mv -f ParsedXML/{CHANGES.txt,CREDITS.txt,INSTALL.txt,README.txt} docs/ParsedXML
 mv -f ProxyIndex/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt} docs/ProxyIndex
@@ -48,16 +49,13 @@ mv -f SilvaViews/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt} docs/SilvaView
 mv -f Sprout/{HISTORY.txt,README.txt} docs/Sprout
 rm -rf Sprout/LICENSES.txt
 mv -f XMLWidgets/{CREDITS.txt,HISTORY.txt,INSTALL.txt,README.txt} docs/XMLWidgets
-mv -f kupu/doc/* docs/kupu
 # mv -f kupu/README*.txt docs/kupu
-rm -rf kupu/doc
-rm -rf kupu/{Makefile,make.bat}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-cp -af {Annotations,ParsedXML,ProxyIndex,Silva,SilvaDocument,SilvaMetadata,SilvaViews,Sprout,XMLWidgets,kupu} \
+cp -af {Annotations,ParsedXML,ProxyIndex,Silva,SilvaDocument,SilvaMetadata,SilvaViews,Sprout,XMLWidgets} \
 	$RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -70,7 +68,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in Annotations ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews Sprout XMLWidgets kupu; do
+for p in Annotations ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews Sprout XMLWidgets; do
 	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -79,7 +77,7 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-	for p in Annotations ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews Sprout XMLWidgets kupu; do
+	for p in Annotations ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews Sprout XMLWidgets; do
 		/usr/sbin/installzopeproduct -d $p
 	done
 fi
