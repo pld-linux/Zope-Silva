@@ -3,19 +3,19 @@ Summary:	A Zope-based web application
 Summary(pl):	Aplikacja dla stron WWW oparta na Zope
 Name:		Zope-%{zope_subname}
 # %%define		sub_ver b1
-Version:	1.2.2
-Release:	2
+Version:	1.4
+Release:	1
 License:	Distributable
 Group:		Development/Tools
 Source0:	http://www.infrae.com/download/Silva/%{version}/%{zope_subname}-%{version}-all.tgz
-# Source0-md5:	f1c2e63b4afa5de98cd33d5d37be2c90
-URL:		http://zope.org/Members/infrae/Silva/
+# Source0-md5:	1a136d219ca617865b8f34b3e0c2bdaf
+URL:		http://www.infrae.com/products/silva/
 BuildRequires:	python
 %pyrequires_eq	python-modules
 Requires:	Zope >= 2.6.1
-Requires:	Zope-kupu
-Requires:	Zope-FileSystemSite >= 1.4.1
-Requires:	Zope-Formulator >= 1.8.0
+Requires:	Zope-kupu >= 1.3.1
+Requires:	Zope-FileSystemSite >= 1.4.2
+Requires:	Zope-Formulator >= 1.10
 Requires:	Zope-PlacelessTranslationService
 Requires:	python-PyXML >= 0.8.3
 Requires(post,postun):	/usr/sbin/installzopeproduct
