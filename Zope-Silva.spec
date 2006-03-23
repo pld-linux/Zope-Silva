@@ -12,13 +12,14 @@ Source0:	http://www.infrae.com/download/Silva/%{version}/%{zope_subname}-%{versi
 URL:		http://www.infrae.com/products/silva/
 BuildRequires:	python
 %pyrequires_eq	python-modules
+BuildRequires:	rpmbuild(macros) >= 1.268
+Requires(post,postun):	/usr/sbin/installzopeproduct
 Requires:	Zope >= 2.6.1
-Requires:	Zope-kupu >= 1.3.1
 Requires:	Zope-FileSystemSite >= 1.4.2
 Requires:	Zope-Formulator >= 1.10
 Requires:	Zope-PlacelessTranslationService
+Requires:	Zope-kupu >= 1.3.1
 Requires:	python-PyXML >= 0.8.3
-Requires(post,postun):	/usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -33,7 +34,6 @@ tworzenia i zarz±dzania struktur± tre¶ci tekstowej.
 %prep
 %setup -q -c
 
-%build
 # remove dirs - additional packages!
 rm -rf {Formulator,FileSystemSite,PlacelessTranslationService,kupu}
 
@@ -71,18 +71,14 @@ rm -rf $RPM_BUILD_ROOT
 for p in Annotations ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews Sprout XMLWidgets; do
 	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
-if [ -f /var/lock/subsys/zope ]; then
-	/etc/rc.d/init.d/zope restart >&2
-fi
+%service -q zope restart
 
 %postun
 if [ "$1" = "0" ]; then
 	for p in Annotations ParsedXML ProxyIndex Silva SilvaDocument SilvaMetadata SilvaViews Sprout XMLWidgets; do
 		/usr/sbin/installzopeproduct -d $p
 	done
-fi
-if [ -f /var/lock/subsys/zope ]; then
-	/etc/rc.d/init.d/zope restart >&2
+	%service -q zope restart
 fi
 
 %files
