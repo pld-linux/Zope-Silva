@@ -1,6 +1,6 @@
 %define		zope_subname	Silva
 Summary:	A Zope-based web application
-Summary(pl.UTF-8):   Aplikacja dla stron WWW oparta na Zope
+Summary(pl.UTF-8):	Aplikacja dla stron WWW oparta na Zope
 Name:		Zope-%{zope_subname}
 # %%define		sub_ver b1
 Version:	1.4.1
