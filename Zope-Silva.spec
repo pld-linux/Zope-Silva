@@ -1,6 +1,6 @@
 %define		zope_subname	Silva
 Summary:	A Zope-based web application
-Summary(pl):	Aplikacja dla stron WWW oparta na Zope
+Summary(pl.UTF-8):   Aplikacja dla stron WWW oparta na Zope
 Name:		Zope-%{zope_subname}
 # %%define		sub_ver b1
 Version:	1.4.1
@@ -27,9 +27,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Silva is a Zope-based web application designed for the creation and
 management of structured, textual content.
 
-%description -l pl
+%description -l pl.UTF-8
 Silva to aplikacja dla stron WWW oparta na Zope, zaprojektowana do
-tworzenia i zarz±dzania struktur± tre¶ci tekstowej.
+tworzenia i zarzÄ…dzania strukturÄ… treÅ›ci tekstowej.
 
 %prep
 %setup -q -c
